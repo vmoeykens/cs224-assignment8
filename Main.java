@@ -7,10 +7,14 @@ import java.util.Scanner;
 class Main {
     public static void main(String[] args) throws Exception {
         File inputFile = promptFile();
-        ArrayList<ArrayList<Integer>> entries = parseFile(inputFile);
-        for (ArrayList<Integer> numbers : entries) {
-            System.out.println(numbers);
-        }
+        try {
+            ArrayList<ArrayList<Integer>> entries = parseFile(inputFile);
+            for (ArrayList<Integer> numbers : entries) {
+                System.out.println(numbers);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }    
     }
 
     /**
@@ -34,9 +38,9 @@ class Main {
 
     /**
      * Parses the input file and outputs an arraylist of all the Lecture objects created from the file
-     * @param lecturesFile file containing list of lectures in format (name, startTime, endTime)
-     * @return ArrayList of Lecture objects
-     * @throws Exception if lecturesFile does not excist (already checked in promptFile)
+     * @param numbersFile file containing list of integers where a new line is a new list of integers
+     * @return ArrayList of ArrayList of integers
+     * @throws Exception if numbersFile does not exist (already checked in promptFile)
      */
     public static ArrayList<ArrayList<Integer>> parseFile(File numbersFile) throws Exception {
         BufferedReader br = new BufferedReader(new FileReader(numbersFile)); 
