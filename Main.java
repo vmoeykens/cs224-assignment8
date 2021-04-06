@@ -10,7 +10,8 @@ class Main {
         try {
             ArrayList<ArrayList<Integer>> entries = parseFile(inputFile);
             for (ArrayList<Integer> numbers : entries) {
-                System.out.println(numbers);
+                ListAndCount temp = new ListAndCount(numbers, 0);
+                System.out.println(sortAndCount(temp));
             }
         } catch (Exception e) {
             System.out.println(e);
@@ -57,4 +58,52 @@ class Main {
         br.close();
         return out;
     }
+
+    /**
+     * 
+     * @param L
+     * @return
+     */
+    public static ListAndCount sortAndCount(ListAndCount L) {
+        return L;
+    }
+}
+
+class ListAndCount {
+    ArrayList<Integer> list;
+    int count;
+
+
+    public ListAndCount() {
+    }
+
+    public ListAndCount(ArrayList<Integer> list, int count) {
+        this.list = list;
+        this.count = count;
+    }
+
+    // Getters and setters
+    public ArrayList<Integer> getList() {
+        return this.list;
+    }
+
+    public void setList(ArrayList<Integer> list) {
+        this.list = list;
+    }
+
+    public int getCount() {
+        return this.count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+
+    // toString 
+    @Override
+    public String toString() {
+        return "Inversion count: " + getCount() + ". " +
+            "Sorted array: " + getList() + ".";
+    }
+
 }
