@@ -60,12 +60,58 @@ class Main {
     }
 
     /**
-     * 
+     * Run the sort and count recursive algorithm 
      * @param L
      * @return
      */
     public static ListAndCount sortAndCount(ListAndCount L) {
-        return L;
+        if (L.size() == 1) {
+            return new ListAndCount(L.list, 0);
+        }
+        int middle = (int) Math.ceil(L.size() / 2);
+        ArrayList<Integer> subListA = new ArrayList<Integer>(L.getList().subList(0, middle));
+        ArrayList<Integer> subListB = new ArrayList<Integer>(L.getList().subList(middle, L.size()));
+
+        ListAndCount A = sortAndCount(new ListAndCount(subListA, L.getCount()));
+        ListAndCount B = sortAndCount(new ListAndCount(subListB, L.getCount()));
+
+        ListAndCount out = mergeAndCount(A.getList(), B.getList());
+        return new ListAndCount(out.getList(), A.getCount() + B.getCount() + out.getCount());
+    }
+
+    /**
+     * Run the merge and count method
+     * @param A
+     * @param B
+     * @return
+     */
+    public static ListAndCount mergeAndCount(ArrayList<Integer> A, ArrayList<Integer> B) {
+        int count = 0;
+        int aPointer = 0;
+        int bPointer = 0;
+        ArrayList<Integer> output = new ArrayList<Integer>();
+        while (aPointer < A.size() && bPointer < B.size()) {
+            if (A.get(aPointer) > B.get(bPointer)) {
+                output.add(B.get(bPointer));
+                count += A.size() - aPointer;
+                bPointer += 1;
+            } else {
+                output.add(A.get(aPointer));
+                aPointer += 1;
+            }
+        }
+        if (aPointer == A.size()) {
+            while (bPointer < B.size()) {
+                output.add(B.get(bPointer));
+                bPointer += 1;
+            }
+        } else {
+            while (aPointer < A.size()) {
+                output.add(A.get(aPointer));
+                aPointer += 1;
+            }
+        }
+        return new ListAndCount(output, count); // PAGE 224 in TEXTBOOK
     }
 }
 
@@ -99,11 +145,19 @@ class ListAndCount {
         this.count = count;
     }
 
+    public int size() {
+        return this.list.size();
+    }
+
     // toString 
     @Override
     public String toString() {
+        String sortedList = "";
+        for (Integer item : getList()) {
+            sortedList += (" " + item);
+        }
         return "Inversion count: " + getCount() + ". " +
-            "Sorted array: " + getList() + ".";
+            "Sorted array:" + sortedList + ".";
     }
 
 }
