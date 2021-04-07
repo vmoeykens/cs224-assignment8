@@ -1,0 +1,2 @@
+Inversion count: 2. Sorted array: 1 2 13 14 25 26.
+Inversion count: 8. Sorted array: 10 12 23 34 45.
