@@ -6,10 +6,13 @@ import java.util.Scanner;
 
 class Main {
     public static void main(String[] args) throws Exception {
+        // Get input file
         File inputFile = promptFile();
         try {
+            // Get the input lines
             ArrayList<ArrayList<Integer>> entries = parseFile(inputFile);
             for (ArrayList<Integer> numbers : entries) {
+                // For each line run the algorithm on the input list and display the output
                 ListAndCount temp = new ListAndCount(numbers, 0);
                 System.out.println(sortAndCount(temp));
             }
@@ -61,8 +64,8 @@ class Main {
 
     /**
      * Run the sort and count recursive algorithm 
-     * @param L
-     * @return
+     * @param L List and current count of inversions to be sorted
+     * @return Sorted list and number of inversions counted
      */
     public static ListAndCount sortAndCount(ListAndCount L) {
         if (L.size() == 1) {
@@ -81,9 +84,9 @@ class Main {
 
     /**
      * Run the merge and count method
-     * @param A
-     * @param B
-     * @return
+     * @param A List of integers on the A side to be merged
+     * @param B List of integers on the B side to be merged
+     * @return ListAndCount continaing a fully sorted list of integers and the count of inversions
      */
     public static ListAndCount mergeAndCount(ArrayList<Integer> A, ArrayList<Integer> B) {
         int count = 0;
@@ -115,11 +118,14 @@ class Main {
     }
 }
 
+/**
+ * A class to hold a list of integers and the current count of inversions
+ */
 class ListAndCount {
     ArrayList<Integer> list;
     int count;
 
-
+    // Constructors
     public ListAndCount() {
     }
 
